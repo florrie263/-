@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .message-board {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 1.1em;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 250px;
+            height: 200px;
+        }
+
+        .message:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .message-meta {
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .message-content {
+            font-size: 1em;
+            color: #333;
+            display: flex;
+            align-content: center;
+        }
+
+        .message-author {
+            text-align: right;
+            margin: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .message-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #message-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #submit-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #submit-button:hover {
+            background-color: #45a049;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-400%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 1s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h1>留言贴</h1>
+        <p>每一份留言都记录了您的想法，也为我们提供了珍贵的回忆</p>
+    </div>
+    <div class="message-board">
+        <h2>留言区</h2>
+        <div id="messages"></div> <!-- 动态添加留言 -->
+    </div>
+
+    <div class="message-form">
+        <textarea id="message-input" placeholder="输入您的留言..." rows="4"></textarea>
+        <button id="submit-button">提交留言</button>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById('messages'); // 获取留言区
+        const messageInput = document.getElementById('message-input'); // 获取输入框
+        const submitButton = document.getElementById('submit-button'); // 获取提交按钮
+
+        // 为提交按钮添加点击事件
+        submitButton.addEventListener('click', function() {
+            const messageText = messageInput.value.trim(); // 获取输入的留言
+            if (messageText) { // 如果留言不为空
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', 'slide-in'); // 添加消息内容和动画样式
+                messageElement.textContent = messageText; // 设置留言内容
+                messagesDiv.prepend(messageElement); // 在留言区最上方添加新留言
+                messageInput.value = ''; // 清空输入框
+            } else {
+                alert('请输入留言内容！'); // 如果留言为空，提醒用户
+            }
+        });
+    </script>
+</body>
+</html>
